@@ -45,24 +45,40 @@ class _RawMesh:
 
 
 class _FakeModel:
+    def __init__(self):
+        self.calls = []
+
     def __call__(self, images, device):
         assert len(images) == 1
         assert device == "cuda:0"
         return "scene"
 
-    def extract_mesh(self, scene_codes, resolution):
+    def extract_mesh(self, scene_codes, resolution, has_vertex_color=False):
         assert scene_codes == "scene"
         assert resolution == 256
+        self.calls.append(has_vertex_color)
         return [_RawMesh()]
 
 
 def test_generate_mesh_converts_triposr_output(monkeypatch):
-    monkeypatch.setattr(generator, "_load_model", lambda: _FakeModel())
+    fake_model = _FakeModel()
+    monkeypatch.setattr(generator, "_load_model", lambda: fake_model)
     monkeypatch.setattr(generator, "_load_torch", lambda: _FakeTorch())
 
     image = Image.new("RGB", (8, 8), (255, 255, 255))
     mesh = generator.generate_mesh(image)
 
+    assert mesh.vertices.shape == (3, 3)
+    assert mesh.faces.shape == (1, 3)
+    assert fake_model.calls == [False]
+
+
+def test_to_trimesh_accepts_numpy_arrays():
+    class _RawNumpy:
+        vertices = np.array([[0.0, 0.0, 0.0], [1.0, 0.0, 0.0], [0.0, 1.0, 0.0]])
+        faces = np.array([[0, 1, 2]])
+
+    mesh = generator._to_trimesh(_RawNumpy())
     assert mesh.vertices.shape == (3, 3)
     assert mesh.faces.shape == (1, 3)
 

@@ -9,7 +9,7 @@ fi
 cd TripoSR
 
 pip install -q -r requirements.txt
-pip install -q rembg trimesh
+pip install -q rembg trimesh onnxruntime "huggingface_hub>=0.24.0" "transformers>=4.41.0"
 
 python - <<'PY'
 import torch

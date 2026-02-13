@@ -5,6 +5,7 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Any, Union
 
+import numpy as np
 from PIL import Image
 import trimesh
 
@@ -63,8 +64,19 @@ def _load_image(image: ImageInput) -> Image.Image:
 
 
 def _to_trimesh(raw_mesh: Any) -> trimesh.Trimesh:
-    vertices = raw_mesh.vertices.cpu().numpy()
-    faces = raw_mesh.faces.cpu().numpy()
+    def _to_numpy(value: Any) -> np.ndarray:
+        if isinstance(value, np.ndarray):
+            return value
+        if hasattr(value, "detach"):
+            value = value.detach()
+        if hasattr(value, "cpu"):
+            value = value.cpu()
+        if hasattr(value, "numpy"):
+            return value.numpy()
+        return np.asarray(value)
+
+    vertices = _to_numpy(raw_mesh.vertices)
+    faces = _to_numpy(raw_mesh.faces)
     return trimesh.Trimesh(vertices=vertices, faces=faces)
 
 
@@ -79,6 +91,14 @@ def generate_mesh(image: ImageInput, mc_resolution: int = 256) -> trimesh.Trimes
 
     with torch.no_grad():
         scene_codes = model([pil_image], device="cuda:0")
-        meshes = model.extract_mesh(scene_codes, resolution=mc_resolution)
+        try:
+            meshes = model.extract_mesh(
+                scene_codes,
+                resolution=mc_resolution,
+                has_vertex_color=False,
+            )
+        except TypeError:
+            # Backward compatibility for older TripoSR signatures.
+            meshes = model.extract_mesh(scene_codes, resolution=mc_resolution)
 
     return _to_trimesh(meshes[0])
