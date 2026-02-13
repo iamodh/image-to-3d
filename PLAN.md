@@ -51,8 +51,8 @@
   - [x] 이미지 → 3D 메시 생성
   - [x] GPU 미감지 시 명확한 에러 메시지
 - [ ] Colab에서 통합 테스트
-  - [ ] setup_colab.sh 작성
-  - [ ] notebooks/quickstart.ipynb 완성
+  - [x] setup_colab.sh 작성
+  - [x] notebooks/quickstart.ipynb 완성
   - [ ] 샘플 이미지 3종 이상 테스트
 - [ ] 전체 파이프라인 검증
   - [ ] 이미지 입력 → STL 출력 end-to-end
