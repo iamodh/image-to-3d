@@ -19,6 +19,17 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--format", choices=["stl", "obj", "3mf"], default="stl", help="출력 포맷")
     parser.add_argument("--no-bg-remove", action="store_true", help="배경 제거 건너뛰기")
     parser.add_argument("--mc-resolution", type=int, default=256, help="Marching Cubes 해상도")
+    parser.add_argument(
+        "--smooth-iterations",
+        type=int,
+        default=8,
+        help="후처리 스무딩 반복 횟수 (높을수록 표면이 매끈해짐)",
+    )
+    parser.add_argument(
+        "--no-enforce-watertight",
+        action="store_true",
+        help="비수밀 메시 강제 보정을 비활성화",
+    )
     parser.add_argument("-v", "--verbose", action="store_true", help="상세 로그")
     return parser
 
@@ -38,7 +49,12 @@ def run(argv: Sequence[str] | None = None) -> int:
     raw_mesh = generator.generate_mesh(image, mc_resolution=args.mc_resolution)
 
     print("[3/4] 메시 후처리 중...")
-    processed_mesh = processor.process_mesh(raw_mesh, target_height=args.height)
+    processed_mesh = processor.process_mesh(
+        raw_mesh,
+        target_height=args.height,
+        smooth_iterations=args.smooth_iterations,
+        enforce_watertight=not args.no_enforce_watertight,
+    )
 
     print("[4/4] 검증 및 저장 중...")
     report = validator.validate_mesh(processed_mesh)

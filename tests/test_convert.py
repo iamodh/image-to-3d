@@ -17,8 +17,8 @@ def test_run_pipeline_with_mocks(monkeypatch, tmp_path):
         steps.append(("gen", image, mc_resolution))
         return mesh
 
-    def fake_process_mesh(raw_mesh, target_height):
-        steps.append(("proc", raw_mesh is mesh, target_height))
+    def fake_process_mesh(raw_mesh, target_height, smooth_iterations, enforce_watertight):
+        steps.append(("proc", raw_mesh is mesh, target_height, smooth_iterations, enforce_watertight))
         return raw_mesh
 
     def fake_validate_mesh(processed_mesh):
@@ -54,7 +54,7 @@ def test_run_pipeline_with_mocks(monkeypatch, tmp_path):
     assert steps == [
         ("bg", "input.png"),
         ("gen", "processed-image", 320),
-        ("proc", True, 123.0),
+        ("proc", True, 123.0, 8, True),
         ("val", True),
     ]
 
@@ -63,7 +63,11 @@ def test_run_without_bg_remove(monkeypatch, tmp_path):
     mesh = trimesh.creation.box(extents=[1.0, 1.0, 1.0])
 
     monkeypatch.setattr(convert.generator, "generate_mesh", lambda image, mc_resolution: mesh)
-    monkeypatch.setattr(convert.processor, "process_mesh", lambda raw_mesh, target_height: raw_mesh)
+    monkeypatch.setattr(
+        convert.processor,
+        "process_mesh",
+        lambda raw_mesh, target_height, smooth_iterations, enforce_watertight: raw_mesh,
+    )
     monkeypatch.setattr(
         convert.validator,
         "validate_mesh",
