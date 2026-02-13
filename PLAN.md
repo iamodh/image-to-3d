@@ -46,7 +46,7 @@
 
 > 목표: TripoSR 연동 + 전체 파이프라인 end-to-end 동작
 
-- [ ] src/generator.py 구현
+- [x] src/generator.py 구현
   - [x] TripoSR 모델 로드 (캐싱)
   - [x] 이미지 → 3D 메시 생성
   - [x] GPU 미감지 시 명확한 에러 메시지
@@ -67,12 +67,12 @@
 
 > 목표: 어떤 환경에서든 동일하게 실행 가능한 Docker 이미지
 
-- [ ] Dockerfile 작성
-  - [ ] nvidia/cuda 베이스 이미지
-  - [ ] TripoSR + 의존성 설치
-  - [ ] ENTRYPOINT로 convert.py 실행
-- [ ] docker-compose.yml 작성
-- [ ] .dockerignore 작성
+- [x] Dockerfile 작성
+  - [x] nvidia/cuda 베이스 이미지
+  - [x] TripoSR + 의존성 설치
+  - [x] ENTRYPOINT로 convert.py 실행
+- [x] docker-compose.yml 작성
+- [x] .dockerignore 작성
 - [ ] 로컬 Docker 빌드 + 실행 테스트
 - [ ] 클라우드 배포 테스트
   - [ ] Docker Hub에 이미지 푸시

@@ -1,0 +1,18 @@
+services:
+  converter:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: image-to-3d:latest
+    working_dir: /app
+    volumes:
+      - ./input:/app/input
+      - ./output:/app/output
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    command: ["--help"]

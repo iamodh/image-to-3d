@@ -54,3 +54,19 @@
 2. Colab 통합 검증 스크립트/노트북 정리 (`setup_colab.sh`, `notebooks/quickstart.ipynb`)
 3. 입력 이미지 -> 출력 STL end-to-end 검증
 4. Phase 3: Dockerfile / docker-compose / 배포 검증
+
+## 추가 진행 내역 (업데이트)
+- `src/generator.py`에 TripoSR 지연 로딩/모델 캐싱/GPU 체크 구현 완료
+- `tests/test_generator.py` 추가
+- Colab 지원 파일 추가
+  - `setup_colab.sh`
+  - `notebooks/quickstart.ipynb`
+- Docker 패키징 파일 추가
+  - `Dockerfile`
+  - `docker-compose.yml`
+  - `.dockerignore`
+
+## 현재 남은 블로커
+- 이 WSL 세션에서 Docker 명령이 비활성화 상태
+  - 메시지: WSL integration in Docker Desktop 비활성
+  - 영향: `docker build`, `docker run` 로컬 검증 미실행
