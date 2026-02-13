@@ -15,28 +15,28 @@
 - [x] TECHSPEC.md 작성
 - [x] CLAUDE.md 작성
 - [x] PLAN.md 작성
-- [ ] 프로젝트 구조 생성 (디렉토리, __init__.py, requirements.txt, .gitignore)
-- [ ] src/processor.py 구현
-  - [ ] 메시 수리 (normals, winding, holes)
-  - [ ] 중복 정점/면 제거
-  - [ ] 크기 조정 (target_height 기준)
-  - [ ] 바닥면 정렬 + 원점 중심 정렬
-  - [ ] tests/test_processor.py 작성
-- [ ] src/validator.py 구현
-  - [ ] watertight 체크
-  - [ ] 크기 체크 (축별 최소 1mm)
-  - [ ] 면 법선 방향 체크
-  - [ ] 부피 계산
-  - [ ] tests/test_validator.py 작성
-- [ ] src/bg_remover.py 구현
-  - [ ] rembg로 배경 제거
-  - [ ] RGBA → 흰 배경 RGB 변환
-  - [ ] tests/test_bg_remover.py 작성
-- [ ] convert.py CLI 프레임 구현
-  - [ ] argparse 옵션 정의
-  - [ ] 파이프라인 오케스트레이션 (generator는 mock)
-  - [ ] 진행 상태 출력 ([1/4], [2/4]...)
-- [ ] tests/fixtures/sample_mesh.stl 생성 (테스트용)
+- [x] 프로젝트 구조 생성 (디렉토리, __init__.py, requirements.txt, .gitignore)
+- [x] src/processor.py 구현
+  - [x] 메시 수리 (normals, winding, holes)
+  - [x] 중복 정점/면 제거
+  - [x] 크기 조정 (target_height 기준)
+  - [x] 바닥면 정렬 + 원점 중심 정렬
+  - [x] tests/test_processor.py 작성
+- [x] src/validator.py 구현
+  - [x] watertight 체크
+  - [x] 크기 체크 (축별 최소 1mm)
+  - [x] 면 법선 방향 체크
+  - [x] 부피 계산
+  - [x] tests/test_validator.py 작성
+- [x] src/bg_remover.py 구현
+  - [x] rembg로 배경 제거
+  - [x] RGBA → 흰 배경 RGB 변환
+  - [x] tests/test_bg_remover.py 작성
+- [x] convert.py CLI 프레임 구현
+  - [x] argparse 옵션 정의
+  - [x] 파이프라인 오케스트레이션 (generator는 mock)
+  - [x] 진행 상태 출력 ([1/4], [2/4]...)
+- [x] tests/fixtures/sample_mesh.stl 생성 (테스트용)
 
 **완료 조건**: `pytest tests/ -v` 전체 통과, generator mock 상태에서 CLI 실행 가능
 
