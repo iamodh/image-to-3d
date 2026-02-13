@@ -70,3 +70,11 @@
 - 이 WSL 세션에서 Docker 명령이 비활성화 상태
   - 메시지: WSL integration in Docker Desktop 비활성
   - 영향: `docker build`, `docker run` 로컬 검증 미실행
+
+## Colab 검증 준비 상태
+- `scripts/colab_e2e.py` 추가
+  - manifest 기반으로 3개 이상 이미지를 연속 변환
+  - 실행 결과를 `examples/colab_e2e_report.json`으로 저장
+- `examples/colab_test_manifest.txt` 추가
+- `examples/COLAB_RUN.md` 실행 가이드 추가
+- 현재 남은 것은 Colab GPU에서 실제 실행 결과 수집/확인뿐임

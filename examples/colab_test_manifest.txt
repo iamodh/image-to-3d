@@ -1,0 +1,4 @@
+# Colab e2e test image list (3+ items)
+examples/inputs/sample1.png
+examples/inputs/sample2.png
+examples/inputs/sample3.png
