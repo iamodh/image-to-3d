@@ -47,9 +47,9 @@
 > 목표: TripoSR 연동 + 전체 파이프라인 end-to-end 동작
 
 - [ ] src/generator.py 구현
-  - [ ] TripoSR 모델 로드 (캐싱)
-  - [ ] 이미지 → 3D 메시 생성
-  - [ ] GPU 미감지 시 명확한 에러 메시지
+  - [x] TripoSR 모델 로드 (캐싱)
+  - [x] 이미지 → 3D 메시 생성
+  - [x] GPU 미감지 시 명확한 에러 메시지
 - [ ] Colab에서 통합 테스트
   - [ ] setup_colab.sh 작성
   - [ ] notebooks/quickstart.ipynb 완성
